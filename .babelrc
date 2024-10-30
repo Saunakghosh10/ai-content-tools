@@ -1,0 +1,11 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    ["@babel/plugin-transform-runtime", {
+      "corejs": 3,
+      "regenerator": true,
+      "helpers": true,
+      "useESModules": true
+    }]
+  ]
+} 
