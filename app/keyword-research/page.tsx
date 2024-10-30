@@ -2,7 +2,7 @@ import KeywordResearchForm from "../../components/KeywordResearchForm";
 import { Search } from 'lucide-react';
 import { ModeToggle } from "@/components/mode-toggle";
 
-export function KeywordResearchPage() {
+export default function KeywordResearchPage() {
   return (
     <div className="container mx-auto">
       <div className="min-h-screen p-8 pb-20 sm:p-20 bg-background">
@@ -25,6 +25,3 @@ export function KeywordResearchPage() {
     </div>
   );
 }
-
-// Keep the default export for the route
-export default KeywordResearchPage;
