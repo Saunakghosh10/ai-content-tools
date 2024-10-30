@@ -89,8 +89,16 @@ The article should read as if written by an experienced professional writer for 
 Make sure all sentences and sections are complete - no truncated thoughts or paragraphs.`;
 }
 
+interface ArticleRequestBody {
+  model: string;
+  apiKey: string;
+  topic: string;
+  keywords: string;
+  tone: string;
+}
+
 export async function POST(req: Request) {
-  const { model, apiKey, topic, keywords, tone } = await req.json()
+  const { model, apiKey, topic, keywords, tone }: ArticleRequestBody = await req.json()
 
   if (!topic || !keywords || !tone) {
     return NextResponse.json(
@@ -121,7 +129,7 @@ export async function POST(req: Request) {
                 role: 'system',
                 content: `${SYSTEM_PROMPTS.openai}\nEnsure all articles are complete with proper conclusions. Never truncate content.`
               },
-              { role: 'user', content: generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone) }
+              { role: 'user', content: generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone) }
             ],
             temperature: 0.7,
             max_tokens: 4000,
@@ -141,7 +149,7 @@ export async function POST(req: Request) {
             model: 'claude-3-opus-20240229',
             max_tokens: 4000,
             temperature: 0.7,
-            messages: [{ role: 'user', content: generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone) }],
+            messages: [{ role: 'user', content: generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone) }],
             system: SYSTEM_PROMPTS.claude
           })
           article = response.content[0]?.text || ''
@@ -155,7 +163,7 @@ export async function POST(req: Request) {
         try {
           const genAI = new GoogleGenerativeAI(apiKey)
           const geminiModel = genAI.getGenerativeModel({ model: 'gemini-pro' })
-          const geminiResponse = await geminiModel.generateContent(generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone))
+          const geminiResponse = await geminiModel.generateContent(generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone))
           article = await geminiResponse.response.text()
           if (!article) throw new Error('No content in Gemini response')
         } catch (error: any) {
@@ -170,14 +178,22 @@ export async function POST(req: Request) {
             "meta/llama-2-70b-chat:02e509c789964a7ea8736978a43525956ef40397be9033abf9fd2badfe68c9e3",
             {
               input: {
-                prompt: generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone),
+                prompt: generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone),
                 max_length: 4000,
                 temperature: 0.7,
                 top_p: 0.9,
               }
             }
-          )
-          article = response.join('')
+          ) as string[] | string
+
+          if (Array.isArray(response)) {
+            article = response.join('')
+          } else if (typeof response === 'string') {
+            article = response
+          } else {
+            throw new Error('Unexpected response format from Replicate')
+          }
+
           if (!article) throw new Error('No content in Llama 2 response')
         } catch (error: any) {
           throw new Error(`Llama 2 API error: ${error.message}`)
@@ -191,7 +207,7 @@ export async function POST(req: Request) {
           try {
             const response = await hf.textGeneration({
               model: 'mistralai/Mistral-7B-Instruct-v0.1',
-              inputs: generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone),
+              inputs: generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone),
               parameters: {
                 max_new_tokens: 4000,
                 temperature: 0.7,
@@ -205,7 +221,7 @@ export async function POST(req: Request) {
             console.log('Mistral error, falling back to Mixtral:', mistralError)
             const fallbackResponse = await hf.textGeneration({
               model: 'mistralai/Mistral-7B-Instruct-v0.2',
-              inputs: generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone),
+              inputs: generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone),
               parameters: {
                 max_new_tokens: 4000,
                 temperature: 0.7,
@@ -225,14 +241,23 @@ export async function POST(req: Request) {
               "meta/llama-2-70b-chat:02e509c789964a7ea8736978a43525956ef40397be9033abf9fd2badfe68c9e3",
               {
                 input: {
-                  prompt: generateEnhancedPrompt(topic, keywords.split(',').map(k => k.trim()), tone),
+                  prompt: generateEnhancedPrompt(topic, keywords.split(',').map((k: string) => k.trim()), tone),
                   max_length: 4000,
                   temperature: 0.7,
                   top_p: 0.9,
                 }
               }
-            )
-            article = Array.isArray(response) ? response.join('') : response
+            ) as string[] | string
+
+            // Handle both array and string responses, with additional type checking
+            if (Array.isArray(response)) {
+              article = response.join('')
+            } else if (typeof response === 'string') {
+              article = response
+            } else {
+              throw new Error('Unexpected response format from Replicate')
+            }
+
             if (!article) throw new Error('No content in fallback response')
           } catch (fallbackError: any) {
             throw new Error(`AI Service Unavailable: ${error.message}. Fallback also failed: ${fallbackError.message}`)
