@@ -23,12 +23,20 @@ const tools = [
     delay: 0.2
   },
   {
-    title: 'Coming Soon',
-    description: 'More AI tools are on the way',
-    icon: <Sparkles className="w-6 h-6" />,
-    href: '/coming-soon',
+    title: 'Content Optimizer',
+    description: 'Enhance your content for better SEO and readability',
+    icon: <Zap className="w-6 h-6" />,
+    href: '/content-optimizer',
     gradient: 'from-purple-500 to-pink-500',
     delay: 0.3
+  },
+  {
+    title: 'Coming Soon',
+    description: 'Check out our upcoming features and tools',
+    icon: <Sparkles className="w-6 h-6" />,
+    href: '/coming-soon',
+    gradient: 'from-yellow-500 to-orange-500',
+    delay: 0.4
   }
 ];
 

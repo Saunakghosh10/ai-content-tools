@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bot, Sparkles, Brain, Zap, ArrowRight, FileText, Search, MessageSquare } from 'lucide-react';
+import { Bot, Sparkles, Brain, Zap, ArrowRight, FileText, Search, MessageSquare, Image, Code, Globe } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
 
 const upcomingFeatures = [
@@ -11,21 +11,28 @@ const upcomingFeatures = [
     description: 'AI-powered tool to generate and schedule social media content',
     icon: <MessageSquare className="w-6 h-6" />,
     gradient: 'from-blue-500 to-cyan-500',
-    eta: 'Coming in April'
-  },
-  {
-    title: 'Content Optimizer',
-    description: 'Enhance your content for better SEO and readability',
-    icon: <Zap className="w-6 h-6" />,
-    gradient: 'from-purple-500 to-pink-500',
     eta: 'Coming in May'
   },
   {
     title: 'Image Generator',
     description: 'Create custom images using AI for your content',
-    icon: <Sparkles className="w-6 h-6" />,
-    gradient: 'from-orange-500 to-red-500',
+    icon: <Image className="w-6 h-6" />,
+    gradient: 'from-purple-500 to-pink-500',
     eta: 'Coming in June'
+  },
+  {
+    title: 'Code Assistant',
+    description: 'Generate and optimize code with AI assistance',
+    icon: <Code className="w-6 h-6" />,
+    gradient: 'from-orange-500 to-red-500',
+    eta: 'Coming in July'
+  },
+  {
+    title: 'Translation Tool',
+    description: 'Translate your content into multiple languages',
+    icon: <Globe className="w-6 h-6" />,
+    gradient: 'from-green-500 to-emerald-500',
+    eta: 'Coming in August'
   }
 ];
 
