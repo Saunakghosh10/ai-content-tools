@@ -2,40 +2,39 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bot, FileText, Sparkles, ArrowRight, Search, Brain, Zap } from 'lucide-react';
-import { ModeToggle } from '@/components/mode-toggle';
+import { Bot, FileText, Sparkles, ArrowRight, Search, Brain, Zap, Link2, Rocket } from 'lucide-react';
 
 const tools = [
   {
     title: 'Article Writer',
-    description: 'Generate high-quality articles with AI assistance',
-    icon: <FileText className="w-6 h-6" />,
+    description: 'Generate high-quality articles with AI assistance. Perfect for blogs, content marketing, and more.',
+    icon: <FileText className="w-7 h-7" />,
     href: '/article-writer',
-    gradient: 'from-blue-500 to-cyan-500',
+    gradient: 'from-blue-500/20 to-cyan-500/20',
     delay: 0.1
   },
   {
     title: 'Keyword Research',
-    description: 'Discover valuable keywords for your content',
-    icon: <Search className="w-6 h-6" />,
+    description: 'Discover valuable keywords for your content. Get insights into search volume and competition.',
+    icon: <Search className="w-7 h-7" />,
     href: '/keyword-research',
-    gradient: 'from-green-500 to-emerald-500',
+    gradient: 'from-green-500/20 to-emerald-500/20',
     delay: 0.2
   },
   {
     title: 'Content Optimizer',
-    description: 'Enhance your content for better SEO and readability',
-    icon: <Zap className="w-6 h-6" />,
+    description: 'Enhance your content for better SEO and readability. Get actionable suggestions for improvement.',
+    icon: <Zap className="w-7 h-7" />,
     href: '/content-optimizer',
-    gradient: 'from-purple-500 to-pink-500',
+    gradient: 'from-purple-500/20 to-pink-500/20',
     delay: 0.3
   },
   {
-    title: 'Coming Soon',
-    description: 'Check out our upcoming features and tools',
-    icon: <Sparkles className="w-6 h-6" />,
-    href: '/coming-soon',
-    gradient: 'from-yellow-500 to-orange-500',
+    title: 'URL Shortener',
+    description: 'Create concise, shareable links instantly. Track clicks and manage your shortened URLs.',
+    icon: <Link2 className="w-7 h-7" />,
+    href: '/url-shortener',
+    gradient: 'from-yellow-500/20 to-orange-500/20',
     delay: 0.4
   }
 ];
@@ -64,141 +63,90 @@ const itemVariants = {
 
 export default function Home() {
   return (
-    <div className="container mx-auto">
-      <div className="min-h-screen p-8 pb-20 sm:p-20 bg-background">
+    <div className="min-h-screen bg-background dark">
+      <main className="container mx-auto px-4 py-16 relative">
         <motion.div 
-          className="absolute top-4 right-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <ModeToggle />
-        </motion.div>
-
-        <motion.div 
-          className="max-w-4xl mx-auto space-y-12"
-          variants={containerVariants}
+          className="max-w-5xl mx-auto space-y-12"
           initial="hidden"
           animate="visible"
+          variants={containerVariants}
         >
-          {/* Hero Section */}
           <motion.div 
-            className="text-center space-y-6"
-            variants={itemVariants}
+            variants={itemVariants} 
+            className="text-center space-y-6 relative"
           >
             <motion.div
-              className="flex items-center justify-center gap-3 mb-6"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
+              className="flex justify-center mb-6"
             >
-              <Bot className="w-12 h-12 text-primary" />
+              <div className="p-3 rounded-full bg-primary/10">
+                <Sparkles className="w-10 h-10 text-primary" />
+              </div>
             </motion.div>
             
-            <h1 className="text-5xl font-bold text-foreground tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
               AI Content Tools
             </h1>
-            <p className="text-xl text-muted-foreground max-w-lg mx-auto">
-              Create high-quality content with the power of artificial intelligence
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Powerful AI tools to enhance your content creation workflow
             </p>
+
+            <motion.div
+              className="flex justify-center gap-4 pt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link href="/coming-soon">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  <Rocket className="w-5 h-5" />
+                  <span>Coming Soon</span>
+                </motion.button>
+              </Link>
+            </motion.div>
           </motion.div>
 
-          {/* Tools Grid */}
-          <div className="grid gap-6 md:grid-cols-3">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10"
+            variants={containerVariants}
+          >
             {tools.map((tool) => (
               <motion.div
                 key={tool.title}
                 variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
-                className="h-full"
               >
-                <Link href={tool.href} className="h-full block">
-                  <motion.div 
-                    className={`relative group overflow-hidden rounded-xl border bg-card p-8 h-full flex flex-col hover:shadow-lg transition-all duration-200`}
-                  >
-                    <motion.div 
-                      className={`absolute inset-0 opacity-0 group-hover:opacity-5 bg-gradient-to-r ${tool.gradient} transition-opacity duration-300`}
-                      initial={false}
-                    />
-                    <div className="relative z-10 flex flex-col h-full">
+                <Link href={tool.href}>
+                  <div className={`p-8 rounded-xl border bg-card hover:bg-accent transition-all duration-300 group relative overflow-hidden h-full`}>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className="relative z-10">
                       <div className="flex items-start gap-4">
-                        <div className="mt-1 p-2 rounded-lg bg-primary/10 text-primary">
+                        <div className="p-3 rounded-xl bg-primary/10 text-primary">
                           {tool.icon}
                         </div>
                         <div className="space-y-2 flex-1">
-                          <div className="flex items-center gap-2">
-                            <h2 className="text-xl font-semibold text-foreground">
-                              {tool.title}
-                            </h2>
-                            <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
-                          </div>
+                          <h2 className="text-xl font-semibold tracking-tight">{tool.title}</h2>
                           <p className="text-muted-foreground">
                             {tool.description}
                           </p>
                         </div>
+                        <ArrowRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1" />
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </Link>
               </motion.div>
             ))}
-          </div>
-
-          {/* Features Section */}
-          <motion.div 
-            className="space-y-8 mt-16"
-            variants={itemVariants}
-          >
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                Powered by Advanced AI
-              </h2>
-              <p className="text-muted-foreground">
-                Choose from multiple AI models to create the perfect content
-              </p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  icon: <Bot className="w-6 h-6" />,
-                  title: "Multiple AI Models",
-                  description: "Choose from GPT-4, Claude, Gemini, and more"
-                },
-                {
-                  icon: <Brain className="w-6 h-6" />,
-                  title: "Smart Analysis",
-                  description: "Get intelligent insights and recommendations"
-                },
-                {
-                  icon: <Zap className="w-6 h-6" />,
-                  title: "Fast & Efficient",
-                  description: "Quick results with high accuracy"
-                }
-              ].map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  className="p-6 rounded-xl border bg-card"
-                  variants={itemVariants}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary w-fit mb-4">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
         </motion.div>
-      </div>
+      </main>
     </div>
   );
 }
