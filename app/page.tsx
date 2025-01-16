@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bot, FileText, Sparkles, ArrowRight, Search, Brain, Zap, Link2, Rocket } from 'lucide-react';
+import { Bot, FileText, Sparkles, ArrowRight, Search, Brain, Zap, Link2, Rocket, Languages, ImageIcon } from 'lucide-react';
 
 const tools = [
   {
@@ -36,6 +36,22 @@ const tools = [
     href: '/url-shortener',
     gradient: 'from-yellow-500/20 to-orange-500/20',
     delay: 0.4
+  },
+  {
+    title: 'Language Translator',
+    description: 'Translate text between multiple languages with AI-powered accuracy and natural fluency.',
+    icon: <Languages className="w-7 h-7" />,
+    href: '/translator',
+    gradient: 'from-red-500/20 to-pink-500/20',
+    delay: 0.5
+  },
+  {
+    title: 'Image Generator',
+    description: 'Create stunning AI-generated images from text descriptions with advanced customization options.',
+    icon: <ImageIcon className="w-7 h-7" />,
+    href: '/image-generator',
+    gradient: 'from-violet-500/20 to-indigo-500/20',
+    delay: 0.6
   }
 ];
 
@@ -76,18 +92,19 @@ export default function Home() {
             className="text-center space-y-6 relative"
           >
             <motion.div
+              className="flex items-center justify-center gap-3 mb-6"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
-              className="flex justify-center mb-6"
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
             >
-              <div className="p-3 rounded-full bg-primary/10">
-                <Sparkles className="w-10 h-10 text-primary" />
-              </div>
+              <Bot className="w-12 h-12 text-primary" />
             </motion.div>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
-              AI Content Tools
+            <h1 className="text-5xl font-bold text-foreground tracking-tight flex items-center justify-center gap-3">
+              PixlTools
+              <span className="text-sm px-2 py-1 bg-primary/10 text-primary rounded-full font-medium">
+                BETA
+              </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Powerful AI tools to enhance your content creation workflow

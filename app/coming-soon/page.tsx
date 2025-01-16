@@ -2,37 +2,44 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bot, Sparkles, Brain, Zap, ArrowRight, FileText, Search, MessageSquare, Image, Code, Globe } from 'lucide-react';
+import { Bot, Sparkles, Brain, Zap, ArrowRight, FileText, Search, MessageSquare, Code, Headphones, Video, LineChart } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
 
 const upcomingFeatures = [
   {
-    title: 'Social Media Assistant',
-    description: 'AI-powered tool to generate and schedule social media content',
-    icon: <MessageSquare className="w-6 h-6" />,
+    title: 'Code Generator',
+    description: 'Generate code snippets in various programming languages with AI assistance',
+    icon: <Code className="w-6 h-6" />,
     gradient: 'from-blue-500 to-cyan-500',
     eta: 'Coming in May'
   },
   {
-    title: 'Image Generator',
-    description: 'Create custom images using AI for your content',
-    icon: <Image className="w-6 h-6" />,
+    title: 'Audio Transcription',
+    description: 'Convert audio files to text with high accuracy using AI',
+    icon: <Headphones className="w-6 h-6" />,
     gradient: 'from-purple-500 to-pink-500',
     eta: 'Coming in June'
   },
   {
-    title: 'Code Assistant',
-    description: 'Generate and optimize code with AI assistance',
-    icon: <Code className="w-6 h-6" />,
+    title: 'Video Generator',
+    description: 'Create engaging videos with AI-powered assistance',
+    icon: <Video className="w-6 h-6" />,
     gradient: 'from-orange-500 to-red-500',
     eta: 'Coming in July'
   },
   {
-    title: 'Translation Tool',
-    description: 'Translate your content into multiple languages',
-    icon: <Globe className="w-6 h-6" />,
+    title: 'Social Media Assistant',
+    description: 'Generate and optimize social media content with AI',
+    icon: <MessageSquare className="w-6 h-6" />,
     gradient: 'from-green-500 to-emerald-500',
     eta: 'Coming in August'
+  },
+  {
+    title: 'SEO Optimizer',
+    description: 'Optimize your content for better search engine rankings using AI',
+    icon: <LineChart className="w-6 h-6" />,
+    gradient: 'from-yellow-500 to-orange-500',
+    eta: 'Coming in September'
   }
 ];
 
@@ -90,7 +97,7 @@ export default function ComingSoonPage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {upcomingFeatures.map((feature) => (
               <motion.div
                 key={feature.title}
@@ -128,13 +135,16 @@ export default function ComingSoonPage() {
           </div>
 
           <motion.div variants={itemVariants} className="text-center">
-            <Link href="/" className="inline-flex items-center gap-2 text-primary hover:underline">
-              <ArrowRight className="w-4 h-4" />
-              Back to Home
+            <Link 
+              href="/" 
+              className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Back to Available Tools
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </motion.div>
         </motion.div>
       </div>
     </div>
   );
-} 
+}

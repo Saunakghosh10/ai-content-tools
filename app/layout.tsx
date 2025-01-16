@@ -3,7 +3,7 @@ import "./globals.css";
 import { GeistSans } from 'geist/font/sans';
 
 export const metadata: Metadata = {
-  title: "AI Content Tools",
+  title: "PixLTools",
   description: "Powerful AI tools to enhance your content creation workflow",
 };
 
