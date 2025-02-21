@@ -73,7 +73,7 @@ async function generateWithReplicate(prompt: string, apiKey: string) {
         system_prompt: "You are an SEO expert specializing in writing meta descriptions that rank well in search engines while maintaining readability and engagement."
       }
     }
-  );
+  ) as string | string[];
 
   // Replicate returns an array of strings or a single string
   let descriptions: string[] = [];
