@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bot, FileText, Sparkles, ArrowRight, Search, Brain, Zap, Link2, Rocket, Languages, ImageIcon } from 'lucide-react';
+import { Bot, FileText, Sparkles, ArrowRight, Search, Brain, Zap, Link2, Rocket, Languages, ImageIcon, FileText as MetaIcon, FileSearch } from 'lucide-react';
 
 const tools = [
   {
@@ -52,6 +52,22 @@ const tools = [
     href: '/image-generator',
     gradient: 'from-violet-500/20 to-indigo-500/20',
     delay: 0.6
+  },
+  {
+    title: 'Meta Description Generator',
+    description: 'Generate SEO-optimized meta descriptions with perfect length and keyword optimization.',
+    icon: <MetaIcon className="w-7 h-7" />,
+    href: '/meta-description',
+    gradient: 'from-teal-500/20 to-emerald-500/20',
+    delay: 0.7
+  },
+  {
+    title: 'Plagiarism Checker',
+    description: 'Check content originality, get similarity scores, and find source citations with AI assistance.',
+    icon: <FileSearch className="w-7 h-7" />,
+    href: '/plagiarism-checker',
+    gradient: 'from-amber-500/20 to-orange-500/20',
+    delay: 0.8
   }
 ];
 

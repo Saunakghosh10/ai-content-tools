@@ -135,12 +135,15 @@ export default function ComingSoonPage() {
           </div>
 
           <motion.div variants={itemVariants} className="text-center">
-            <Link 
-              href="/" 
-              className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              Back to Available Tools
-              <ArrowRight className="w-4 h-4 ml-2" />
+            <Link href="/">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Back to Available Tools
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
             </Link>
           </motion.div>
         </motion.div>
